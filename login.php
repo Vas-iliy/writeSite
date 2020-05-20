@@ -5,11 +5,11 @@ session_start();
 if ($_POST['login']) {
     $login = $_POST['login'];
     $password = $_POST['password'];
-    $user = $connection->query("SELECT email, login, password, validation FROM registrations 
-    WHERE (login or email) = '$login' AND password = '$password' AND validation = true ");
+    $user = $connection->query("SELECT email, login, userPassword, userValidation FROM registrations 
+    WHERE (login or email) = '$login' AND userPassword = '$password' AND userValidation = true ");
 
-    $userDebik = $connection->query("SELECT email, login, password, validation FROM registrations 
-    WHERE (login or email) = '$login' AND password = '$password' AND validation = false ");
+    $userDebik = $connection->query("SELECT email, login, userPassword, userValidation FROM registrations 
+    WHERE (login or email) = '$login' AND userPassword = '$password' AND userValidation = false ");
 
     $userDebik = $userDebik->fetch();
     $user = $user->fetch();
@@ -20,7 +20,7 @@ if ($_POST['login']) {
     elseif ($user) {
         $_SESSION['login'] = $login;
         $_SESSION['password'] = $password;
-        header('Location:state.php');
+        header('Location:index.php');
     } else {
         echo 'Неверный логин или пароль';
     }
