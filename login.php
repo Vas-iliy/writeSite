@@ -41,7 +41,7 @@ if ($_POST['login']) {
 </head>
 <body>
 <div>
-    <form  class="card w-25 mx-auto" method="post">
+    <form  class="card w-25 mx-auto p-2" method="post">
         <div class="card-header">
             <h2 class="h2 header-title">Add your data for entering </h2>
         </div>
