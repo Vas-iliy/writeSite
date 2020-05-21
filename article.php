@@ -18,17 +18,10 @@ $informImg = $informImg->fetch();
 $nameDirectImg = 'images/' . $informImg['login'] . $informImg['id_state'];
 
 $user = $connection->query("SELECT login FROM registrations WHERE userActive = '1'");
-$dontUser = $connection->query("SELECT login FROM registrations WHERE userActive = '0'");
 
-if ($_POST['go']) {
+if ($_POST['submit']) {
     $login = $_POST['login'];
     $text = $_POST['comment'];
-
-    foreach ($dontUser as $dont) {
-        if ($login == $dont['login']) {
-            echo 'Войдите на сайт';
-        }
-    }
 
     foreach ($user as $us) {
         if ($login == $us['login']) {
@@ -42,31 +35,43 @@ if ($_POST['go']) {
 
 }
 
+
 ?>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
 
 <div class="article">
     <?foreach ($state as $st):?>
-    <div class="state">
-        <h2><?=$st['state_title']?></h2>
-        <h3><?=$st['cat_title']?></h3>
-    </div>
-    <div class="user">
-        <h3><a href=""><?=$st['login']?></a></h3>
-        <h4><?=$st['userName']?></h4>
-        <h4><?=$st['surname']?></h4>
-        <h4><?=$st['country']?></h4>
-    </div>
+        <div class="state">
+            <h2><?=$st['state_title']?></h2>
+            <h3><?=$st['cat_title']?></h3>
+        </div>
+        <div class="user">
+            <h3><a href=""><?=$st['login']?></a></h3>
+            <h4><?=$st['userName']?></h4>
+            <h4><?=$st['surname']?></h4>
+            <h4><?=$st['country']?></h4>
+        </div>
     <?endforeach;?>
 </div>
 
 <div class="images">
     <?foreach ($images as $img):?>
-    <div>
-        <?$nameImg = $nameDirectImg. '/' . $img['id_img'] . $img['image_title'] . '.' . $img['extension'];
-        if (file_exists($nameImg)):?>
-        <img src="<?=$nameImg?>" width="300">
-        <?endif;?>
-    </div>
+        <div>
+            <?$nameImg = $nameDirectImg. '/' . $img['id_img'] . $img['image_title'] . '.' . $img['extension'];
+            if (file_exists($nameImg)):?>
+                <img src="<?=$nameImg?>" width="300">
+            <?endif;?>
+        </div>
     <?endforeach;?>
 </div>
 
@@ -77,6 +82,11 @@ if ($_POST['go']) {
     <form method="post">
         <input type="text" name="login" required placeholder="Логин"><br/>
         <textarea name="comment" required placeholder="Комментарий" id="" cols="30" rows="10"></textarea><br/>
-        <input type="submit" name="go">
+        <?if ($_GET['idUser']):?>
+        <p><input type="submit" name="submit"></p>
+        <?endif;?>
     </form>
 </div>
+
+</body>
+</html>

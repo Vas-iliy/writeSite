@@ -1,10 +1,25 @@
 <?php
 
-
 $connection = new PDO('mysql:host=localhost; dbname=write', 'root', 'root');
+session_start();
+
+if (!$_SESSION['login']) {
+    header('Location:index.php');
+}
+
+$id = $_GET['id'];
+
 $state = $connection->query("SELECT id_state, state_title, login, cat_title
 FROM states JOIN registrations USING (id_login) JOIN cats USING (id_cat) WHERE state_moder = 'yes'");
 
+$user = $connection->query("SELECT login FROM registrations WHERE id_login = '$id'");
+$user = $user->fetch();
+$name = $user['login'];
+
+if ($_POST['exit']) {
+    session_destroy();
+    header('Location:index.php');
+}
 
 ?>
 <!doctype html>
@@ -36,16 +51,16 @@ FROM states JOIN registrations USING (id_login) JOIN cats USING (id_cat) WHERE s
 
         <div class="btn-group">
             <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Action
+                <?=$name?>
             </button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="user/person.php">Моя страница</a>
+                <a class="dropdown-item" href="user/person.php?id=<?=$id?>">Моя страница</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="user/newState.php">Добавить статью</a>
-                <a class="dropdown-item" href="user/listMyStates.php">Список статей</a>
+                <a class="dropdown-item" href="user/newState.php?id=<?=$id?>">Добавить статью</a>
+                <a class="dropdown-item" href="user/listMyStates.php?id=<?=$id?>">Список статей</a>
                 <div class="dropdown-divider"></div>
-                <input class="dropdown-item" type="submit" name="exit" value="Выйти">
-            </div>
+                    <form method="post"><input class="dropdown-item" type="submit" name="exit" value="Выйти"></form>
+                </div>
         </div>
 
     </ul>
@@ -59,7 +74,7 @@ FROM states JOIN registrations USING (id_login) JOIN cats USING (id_cat) WHERE s
                     <h5 class="card-title"><?= $st['cat_title'] ?></h5>
                     <p class="card-text"><?= $st['login'] ?></p>
                     <div class="card-footer text-right">
-                        <a href="article.php?id=<?= $st['id_state'] ?>" class="btn btn-primary">Узнать больше</a>
+                        <a href="article.php?id=<?= $st['id_state']?>&idUser=<?=$id?>" class="btn btn-primary">Узнать больше</a>
                     </div>
 
                 </div>
