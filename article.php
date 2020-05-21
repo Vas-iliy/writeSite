@@ -35,19 +35,12 @@ if ($_POST['go']) {
             $writeIdCom = $connection->query("SELECT id_login FROM registrations WHERE login = '$login'");
             $writeIdCom = $writeIdCom->fetch();
             $writeIdCom = $writeIdCom['id_login'];
-            $todoo = $connection->query("INSERT INTO comments (id_login, id_state, com, login ) 
+            $connection->query("INSERT INTO comments (id_login, id_state, com, login ) 
             VALUES ('$writeIdCom', '$id', '$text', '$login')");
-
-            if ($todoo) {
-                echo 'Дождитесь модерации';
-            }
         }
     }
 
 }
-
-
-
 
 ?>
 
