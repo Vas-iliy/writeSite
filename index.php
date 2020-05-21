@@ -18,6 +18,10 @@ if ($_POST['login']) {
     }
 }
 
+if ($_POST['reg']) {
+    header('Location:registration.php');
+}
+
 
 
 ?>
@@ -48,13 +52,9 @@ if ($_POST['login']) {
                 </form>
             </nav>
         <div class="d-flex">
-            <li class="nav-item">
-                <a class="nav-link" href="registration.php">Зарегистрироваться</a>
-            </li>
-
             <div class="btn-group mt-3">
-                <button type="button" class="btn btn-outline-primary dropdown-toggle " data-toggle="dropdown"
-                        style = "width : 220px" aria-haspopup="true" aria-expanded="false">
+                <button type="button"  class="btn btn-outline-primary dropdown-toggle " data-toggle="dropdown"
+                        style = "width : 250px" aria-haspopup="true" aria-expanded="false">
                     Войти
                 </button>
                 <form class="dropdown-menu p-4" method="post">
@@ -66,7 +66,8 @@ if ($_POST['login']) {
                         <label for="exampleDropdownFormPassword2">Пароль</label>
                         <input type="password" class="form-control" id="exampleDropdownFormPassword2" name="password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary " name="submit">Войти</button>
+                    <input type="submit" class="btn btn-outline-success mt-1 " style="width: 200px" name="submit" value="Войти">
+                    <a href="registration.php" class ="nav-link mx-auto">Зарегистрироваться</а>
                     <label for="exampleDropdownFormEmail2"><?=$mail?></label>
                 </form>
             </div>
