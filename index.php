@@ -3,6 +3,21 @@ $connection = new PDO('mysql:host=localhost; dbname=write', 'root', 'root');
 $state = $connection->query("SELECT id_state, state_title, login, cat_title
 FROM states JOIN registrations USING (id_login) JOIN cats USING (id_cat) WHERE state_moder = 'yes'");
 
+$user = $connection->query("SELECT id_login, email, login, userPassword FROM registrations");
+
+if ($_POST['login']) {
+    session_start();
+    foreach ($user as $us) {
+        if ($_POST['login'] == $us['login'] && $_POST['password'] == $us['userPassword']) {
+            $_SESSION['login'] = $us['login'];
+            $_SESSION['password'] = $us['userPassword'];
+            $id = $us['id_login'];
+            header("Location:user.php?id=$id");
+        }
+        $mail = 'Неверный логин или пароль';
+    }
+}
+
 
 
 ?>
@@ -36,9 +51,26 @@ FROM states JOIN registrations USING (id_login) JOIN cats USING (id_cat) WHERE s
             <li class="nav-item">
                 <a class="nav-link" href="registration.php">Зарегистрироваться</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="login.php">Войти</a>
-            </li>
+
+            <div class="btn-group mt-3">
+                <button type="button" class="btn btn-outline-primary dropdown-toggle " data-toggle="dropdown"
+                        style = "width : 220px" aria-haspopup="true" aria-expanded="false">
+                    Войти
+                </button>
+                <form class="dropdown-menu p-4" method="post">
+                    <div class="form-group ">
+                        <label for="exampleDropdownFormEmail2">Логин или email</label>
+                        <input type="text" class="form-control" id="exampleDropdownFormEmail2" name="login" required>
+                    </div>
+                    <div class="form-group ">
+                        <label for="exampleDropdownFormPassword2">Пароль</label>
+                        <input type="password" class="form-control" id="exampleDropdownFormPassword2" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary " name="submit">Войти</button>
+                    <label for="exampleDropdownFormEmail2"><?=$mail?></label>
+                </form>
+            </div>
+
         </div>
 
     </ul>
