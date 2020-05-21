@@ -10,5 +10,23 @@
         <property name="serverTimezone" value="Europe/London" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="@website" uuid="99e4ba71-2289-4dc3-97a2-7c107cba2533">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+      <driver-properties>
+        <property name="serverTimezone" value="London/Europe" />
+      </driver-properties>
+    </data-source>
+    <data-source source="LOCAL" name="@localhost [2]" uuid="38912e77-c754-4ec2-a08e-ab72676d8f06">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3307</jdbc-url>
+      <driver-properties>
+        <property name="serverTimezone" value="Europe/London" />
+      </driver-properties>
+    </data-source>
   </component>
 </project>
