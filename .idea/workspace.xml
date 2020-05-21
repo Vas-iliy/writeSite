@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="a71848d2-bc05-4008-8841-3b2294cb11a6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registration.php" beforeDir="false" afterPath="$PROJECT_DIR$/registration.html" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,21 +35,58 @@
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="@localhost [2]" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost [2]" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
       </path>
+<<<<<<< HEAD
+=======
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@localhost [2]" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="website: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+>>>>>>> fdbf41f62ee7edde29020c7160c917439072ca25
     </expand>
     <select />
   </component>
+  <component name="ExecutionTargetDialog">
+    <checked>
+      <node key="38912e77-c754-4ec2-a08e-ab72676d8f06">
+        <node key="website" />
+      </node>
+      <node key="99e4ba71-2289-4dc3-97a2-7c107cba2533" />
+    </checked>
+    <expanded>
+      <node key="38912e77-c754-4ec2-a08e-ab72676d8f06" />
+    </expanded>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/Vas-iliy/writeSite.git" />
+      </set>
+    </option>
   </component>
   <component name="ProjectId" id="1c5zbcFYotDKVFurMoktvRpHFIb" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -58,15 +97,54 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
+  <component name="RunManager">
+    <configuration name="index.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/index.php">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
       <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
+        <item itemvalue="PHP Script.index.php" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:@localhost [2]" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:@localhost [2]" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@35573d97" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:@localhost [2]" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@27b39505" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:@localhost [2]" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@3d13d2ba" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:@localhost [2]" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@1bdd000" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:@website" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+            </expand>
+            <select />
+          </treeState>
+        </serviceView>
       </list>
     </option>
   </component>
@@ -83,8 +161,14 @@
       <workItem from="1589833316265" duration="2766000" />
       <workItem from="1589878173894" duration="1500000" />
       <workItem from="1589887837379" duration="11747000" />
+<<<<<<< HEAD
       <workItem from="1589970775896" duration="24047000" />
       <workItem from="1590005657758" duration="2437000" />
+=======
+      <workItem from="1589970775896" duration="224000" />
+      <workItem from="1590004472669" duration="161000" />
+      <workItem from="1590004762103" duration="15973000" />
+>>>>>>> fdbf41f62ee7edde29020c7160c917439072ca25
     </task>
     <servers />
   </component>
@@ -103,5 +187,67 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="540" y="176" key="#CLI_Interpreters" timestamp="1590005065812">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="540" y="176" key="#CLI_Interpreters/0.0.1920.1040@0.0.1920.1040" timestamp="1590005065812" />
+    <state x="603" y="76" key="#PHP" timestamp="1590005071200">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="603" y="76" key="#PHP/0.0.1920.1040@0.0.1920.1040" timestamp="1590005071200" />
+    <state x="552" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590006436741">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590006436741" />
+    <state x="677" y="206" width="592" height="627" key="#index.php" timestamp="1590013280817">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="677" y="206" width="592" height="627" key="#index.php/0.0.1920.1040@0.0.1920.1040" timestamp="1590013280817" />
+    <state x="521" y="29" key="CommitChangelistDialog2" timestamp="1590020528634">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="521" y="29" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1590020528634" />
+    <state x="706" y="182" key="ExecutionTargetDialog" timestamp="1590013167234">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="706" y="182" key="ExecutionTargetDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590013167234" />
+    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1590006665258">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590006665258" />
+    <state width="1294" height="261" key="GridCell.Tab.0.bottom" timestamp="1590013045118">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1294" height="261" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590013045118" />
+    <state width="1294" height="261" key="GridCell.Tab.0.center" timestamp="1590013045118">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1294" height="261" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590013045118" />
+    <state width="1294" height="261" key="GridCell.Tab.0.left" timestamp="1590013045117">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1294" height="261" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590013045117" />
+    <state width="1294" height="261" key="GridCell.Tab.0.right" timestamp="1590013045118">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1294" height="261" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590013045118" />
+    <state width="286" height="538" key="HiddenNamespacesPopup" timestamp="1590006441374">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="286" height="538" key="HiddenNamespacesPopup/0.0.1920.1040@0.0.1920.1040" timestamp="1590006441374" />
+    <state x="582" y="255" width="568" height="660" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1590013021078">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="582" y="255" width="568" height="660" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590013021078" />
+    <state x="808" y="255" width="330" height="530" key="com.intellij.database.view.ui.DbObjectDialog" timestamp="1590006450634">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="808" y="255" width="330" height="530" key="com.intellij.database.view.ui.DbObjectDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590006450634" />
+    <state x="595" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1590004794026">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="595" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590004794026" />
   </component>
 </project>
