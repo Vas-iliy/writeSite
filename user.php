@@ -49,8 +49,9 @@ if ($_POST['exit']) {
             </form>
         </nav>
 
-        <div class="btn-group">
-            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="btn-group mt-3">
+            <button type="button" class="btn btn-outline-primary dropdown-toggle " data-toggle="dropdown"
+                    style = "width : 170px" aria-haspopup="true" aria-expanded="false">
                 <?=$name?>
             </button>
             <div class="dropdown-menu">
@@ -59,8 +60,8 @@ if ($_POST['exit']) {
                 <a class="dropdown-item" href="user/newState.php?id=<?=$id?>">Добавить статью</a>
                 <a class="dropdown-item" href="user/listMyStates.php?id=<?=$id?>">Список статей</a>
                 <div class="dropdown-divider"></div>
-                    <form method="post"><input class="dropdown-item" type="submit" name="exit" value="Выйти"></form>
-                </div>
+                <form method="post"><input class="dropdown-item" type="submit" name="exit" value="Выйти"></form>
+            </div>
         </div>
 
     </ul>
