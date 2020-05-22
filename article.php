@@ -15,7 +15,7 @@ $informImg = $connection->query("SELECT id_state, login FROM states JOIN registr
 WHERE id_state = '$id' ");
 
 $informImg = $informImg->fetch();
-$nameDirectImg = 'images/' . $informImg['login'] . $informImg['id_state'];
+$nameDirectImg = 'user/images/' . $informImg['login'] . $informImg['id_state'];
 
 $user = $connection->query("SELECT login FROM registrations WHERE userActive = '1'");
 
