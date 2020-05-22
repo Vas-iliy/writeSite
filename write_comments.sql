@@ -15,5 +15,3 @@ create table comments
         foreign key (id_state) references states (id_state)
 );
 
-INSERT INTO `write`.comments (id_comment, id_login, id_state, com, tm, comment_moder, comment_newTime, login) VALUES (13, 12, 1, '111', '2020-05-20 20:12:57', '0', '2020-05-20 20:12:57', 'Vasiliy');
-INSERT INTO `write`.comments (id_comment, id_login, id_state, com, tm, comment_moder, comment_newTime, login) VALUES (14, 12, 1, '55', '2020-05-20 20:14:38', '0', '2020-05-20 20:14:38', 'Vasiliy');

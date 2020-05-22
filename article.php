@@ -6,7 +6,7 @@ $state = $connection->query("SELECT state_title, state_content, state_newTime, u
 surname, country, login, cat_title FROM states JOIN registrations USING (id_login) JOIN cats USING (id_cat) 
 WHERE id_state = '$id'");
 
-$images = $connection->query("SELECT id_img, image_title, extension FROM  images ");
+$images = $connection->query("SELECT * FROM  images ");
 
 $comments = $connection->query("SELECT comment_newTime, login, com FROM states JOIN comments USING (id_state) 
 WHERE id_state = '$id' AND comment_moder = 'yes' ORDER BY comment_newTime DESC ");
@@ -54,6 +54,7 @@ if ($_POST['submit']) {
         <div class="state">
             <h2><?=$st['state_title']?></h2>
             <h3><?=$st['cat_title']?></h3>
+            <p><?=$st['state_content']?></p>
         </div>
         <div class="user">
             <h3><a href=""><?=$st['login']?></a></h3>
@@ -67,7 +68,7 @@ if ($_POST['submit']) {
 <div class="images">
     <?foreach ($images as $img):?>
         <div>
-            <?$nameImg = $nameDirectImg. '/' . $img['id_img'] . $img['image_title'] . '.' . $img['extension'];
+            <?$nameImg = $nameDirectImg . '/' . $img['id_img'] . $img['image_title'] . '.' . $img['extension'];
             if (file_exists($nameImg)):?>
                 <img src="<?=$nameImg?>" width="300">
             <?endif;?>

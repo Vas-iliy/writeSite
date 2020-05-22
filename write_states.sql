@@ -10,9 +10,9 @@ create table states
     state_moder   varchar(10)                         null,
     state_newTime timestamp default CURRENT_TIMESTAMP not null,
     constraint states_cats_id_cat_fk
-        foreign key (id_cat) references bd.cats (id_cat),
+        foreign key (id_cat) references cats (id_cat),
     constraint states_registrations_id_login_fk
         foreign key (id_login) references registrations (id_login)
 );
 
-INSERT INTO `write`.states (id_state, id_login, id_cat, state_title, state_content, time, state_moder, state_newTime) VALUES (1, 12, 1, 'Статья про спорт', 'Тут написано про спорт', '2020-05-20 18:02:13', 'yes', '2020-05-20 18:02:13');
+INSERT INTO `write`.states (id_state, id_login, id_cat, state_title, state_content, time, state_moder, state_newTime) VALUES (43, 12, 28, 'Статья про аниме', 'тут написано про нарисованных девочек и конечно же про еблю в сракотан', '2020-05-22 23:46:00', 'yes', '2020-05-22 23:46:00');

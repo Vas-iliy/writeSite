@@ -5,4 +5,4 @@ create table cats
     cat_title varchar(30) not null
 );
 
-INSERT INTO `write`.cats (id_cat, cat_title) VALUES (1, 'Спорт');
+INSERT INTO `write`.cats (id_cat, cat_title) VALUES (28, 'аниме');

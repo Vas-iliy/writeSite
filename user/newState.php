@@ -70,7 +70,7 @@ if (isset($_POST['state'])) {
     $nameUser = $connection->query("SELECT login FROM registrations WHERE id_login = '$id'");
     $nameUser = $nameUser->fetch();
     $nameDir = 'images/' . $nameUser['login'] . $id_state;
-    $nameDir = mkdir($nameDir);
+    mkdir($nameDir);
 
     foreach ($files as $file) {
         $fileName = strval($file['name']);
@@ -95,8 +95,8 @@ if (isset($_POST['state'])) {
         if (in_array($fileExtension, $arrExtension)) {
             if ($fileSize < 5000000) {
                 if ($fileError == 0) {
-                    $connection->query("INSERT INTO images (id_state, id_login, image_title, extension) 
-                    VALUES ('$id_state' '$id', '$fileName', $fileExtension ) ");
+                    $new = $connection->query("INSERT INTO images (id_state, id_login, image_title, extension) 
+                    VALUES ('$id_state', '$id', '$fileName', '$fileExtension')");
 
                     $lastId = $connection->query("SELECT MAX(id_img) FROM images");
                     $lastId = $lastId->fetch();
@@ -123,7 +123,7 @@ if (isset($_POST['state'])) {
 
 ?>
 
-
+<a href="../user.php?id=<?=$id?>">обратно</a>
     <form method="post" enctype="multipart/form-data">
         <input type="text" name="title" required placeholder="Название статьи"><br/>
         <input type="text" name="cat" required placeholder="Название Категории"><br/>
