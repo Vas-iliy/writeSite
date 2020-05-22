@@ -22,7 +22,7 @@ if ($_POST['name']) {
     $password = $_POST['password'];
     $authKey = randomAuthKey();
     if ($password != $_POST['password1']) {
-        $err = 'Пароли не совпадают, повторите попытку';
+        $err = "<div class=\"alert alert-danger\" role=\"alert\"><h3 class=\"text-center mt-2\">Пароли не совпадают, повторите попытку</h3></div>";
     } else {
         $data = $connection->query("INSERT INTO registrations 
         (userName, surname, country, email, login, userPassword, authKey) VALUES 
@@ -31,7 +31,7 @@ if ($_POST['name']) {
         if ($data) {
             $m = mail($email, 'Подтвердите почту', "http://writesite/registration.php?auth=$authKey");
             if ($m) {
-                $mail = 'Письмо отправлено. Подтвердите почту';
+                $mail ="<div class=\"alert alert-success\" role=\"alert\"><h3 class=\"text-center mt-2\">Письмо отправлено. Подтвердите почту</h3></div>";
             }
             $name = '';
             $surname = '';
@@ -44,7 +44,7 @@ if ($_POST['name']) {
             $findUser = $findUser->fetch();
 
             if ($findUser['validation']) {
-                $mail =  'Вы уже зарегестрированы, войдите на сайт';
+                $mail = "<div class=\"alert alert-info\" role=\"alert\"><h3 class=\"text-center mt-2\">Вы уже зарегестрированы, войдите на сайт</h3></div>";
                 $name = '';
                 $surname = '';
                 $country = '';
@@ -52,7 +52,7 @@ if ($_POST['name']) {
                 $login = '';
                 $password = '';
             } else {
-                $mail = 'Вы так и не подтвердили почту';
+                $mail = "<div class=\"alert alert-warning\" role=\"alert\"><h3 class=\"text-center mt-2\">Вы так и не подтвердили почту</h3></div>";
                 $name = '';
                 $surname = '';
                 $country = '';
@@ -80,8 +80,8 @@ if ($_GET['login']) {
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-<h2 class="h2 mx-auto mb-3"><?=$err?></h2>
-<h2 class="h2 mx-auto mb-3"><?=$mail?></h2>
+<?=$err?>
+<?=$mail?>
 
 <div class="container">
     <div class="card p-2 w-50 mx-auto">
