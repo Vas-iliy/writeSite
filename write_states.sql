@@ -15,4 +15,4 @@ create table states
         foreign key (id_login) references registrations (id_login)
 );
 
-INSERT INTO `write`.states (id_state, id_login, id_cat, state_title, state_content, time, state_moder, state_newTime) VALUES (43, 12, 28, 'Статья про аниме', 'тут написано про нарисованных девочек и конечно же про еблю в сракотан', '2020-05-22 23:46:00', 'yes', '2020-05-22 23:46:00');
+INSERT INTO `write`.states (id_state, id_login, id_cat, state_title, state_content, time, state_moder, state_newTime) VALUES (43, 12, 28, 'Статья про аниме', 'тут написано про нарисованных девочек и конечно же про еблю в сракотан', '2020-05-23 12:42:46', 'yes', '2020-05-22 23:46:00');

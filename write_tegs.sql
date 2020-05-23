@@ -5,7 +5,7 @@ create table tegs
     teg_title varchar(30) not null
 );
 
-INSERT INTO `write`.tegs (id_teg, teg_title) VALUES (36, 'зубик');
-INSERT INTO `write`.tegs (id_teg, teg_title) VALUES (37, 'лоли');
-INSERT INTO `write`.tegs (id_teg, teg_title) VALUES (38, 'сестра');
-INSERT INTO `write`.tegs (id_teg, teg_title) VALUES (39, 'чулочки');
+INSERT INTO `write`.tegs (id_teg, teg_title) VALUES (40, 'Лоли');
+INSERT INTO `write`.tegs (id_teg, teg_title) VALUES (41, 'Зубик');
+INSERT INTO `write`.tegs (id_teg, teg_title) VALUES (42, 'Чулочки');
+INSERT INTO `write`.tegs (id_teg, teg_title) VALUES (43, 'Аниме');
