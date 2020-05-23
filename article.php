@@ -130,22 +130,48 @@ if ($_POST['submit']) {
 
     </div>
 
+    <div class="card mt-3 col-lg-8">
+        <h3 class="text-center">Комментарии могут оставлять только авторизированные пользователи.</h3>
+        <hr>
+
+        <form method="post">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Логин</label>
+                <input type="text" name="login" class="form-control" id="exampleLogin" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Комментарий</label>
+                <textarea name="comment" class="form-control"  id="exampleComment" cols="30" rows="10"></textarea>
+            </div>
+            <?if ($_GET['idUser']):?>
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+            <?endif;?>
+        </form>
+    </div>
+
+    <div class="card mt-3 col-lg-8">
+        <p class="text-center">Комментарии пользователей.</p>
+        <hr>
+
+        <table border="1">
+            <tr>
+                <th width="100px">Время</th>
+                <th width="100px">Логин</th>
+                <th>Сообщение</th>
+            </tr>
+        <?foreach ($comments as $comment):?>
+            <tr><td width="100px"><?=$comment['comment_newTime']?></td><td width="100px"><?=$comment['login']?></td><td><?=$comment['com']?></td></tr>
+        <?endforeach;?>
+        </table>
+
+    </div>
+
 </div>
 
 
 
-<div class="newComment">
-    <h3>Комментарии могут оставлять только авторизированные пользователи</h3>
-    <hr>
 
-    <form method="post">
-        <input type="text" name="login" required placeholder="Логин"><br/>
-        <textarea name="comment" required placeholder="Комментарий" id="" cols="30" rows="10"></textarea><br/>
-        <?if ($_GET['idUser']):?>
-        <p><input type="submit" name="submit"></p>
-        <?endif;?>
-    </form>
-</div>
+
 
 
 
