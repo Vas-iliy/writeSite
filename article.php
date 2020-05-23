@@ -1,7 +1,7 @@
 <?php
 
 $connection = new PDO('mysql:host=localhost; dbname=write', 'root', 'root');
-$id = $_GET['id'];
+$id = (int)$_GET['id'];
 $state = $connection->query("SELECT state_title, state_content, state_newTime, userName, 
 surname, country, login, cat_title FROM states JOIN registrations USING (id_login) JOIN cats USING (id_cat) 
 WHERE id_state = '$id'");
@@ -20,16 +20,24 @@ $nameDirectImg = 'user/images/' . $informImg['login'] . $informImg['id_state'];
 $user = $connection->query("SELECT login FROM registrations WHERE userActive = '1'");
 
 if ($_POST['submit']) {
-    $login = $_POST['login'];
-    $text = $_POST['comment'];
+    $login = htmlspecialchars($_POST['login']);
+    $text = htmlspecialchars($_POST['comment']);
 
     foreach ($user as $us) {
         if ($login == $us['login']) {
             $writeIdCom = $connection->query("SELECT id_login FROM registrations WHERE login = '$login'");
             $writeIdCom = $writeIdCom->fetch();
             $writeIdCom = $writeIdCom['id_login'];
-            $connection->query("INSERT INTO comments (id_login, id_state, com, login ) 
-            VALUES ('$writeIdCom', '$id', '$text', '$login')");
+
+            $write = $connection->prepare("INSERT  comments (id_login, id_state, com, login ) 
+            VALUES (:writeIdCom, :id, :text, :login)");
+            $com = [
+                    'writeIdCom' => $writeIdCom,
+                    'id' => $id,
+                    'text' => $text,
+                    'login' => $login
+            ];
+            $write->execute($com);
         }
     }
 

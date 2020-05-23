@@ -14,19 +14,29 @@ $err = '';
 $mail = '';
 
 if ($_POST['name']) {
-    $name = $_POST['name'];
-    $surname = $_POST['surname'];
-    $country = $_POST['country'];
-    $email = $_POST['email'];
-    $login = $_POST['login'];
-    $password = $_POST['password'];
+    $name = htmlspecialchars($_POST['name']);
+    $surname = htmlspecialchars($_POST['surname']);
+    $country = htmlspecialchars($_POST['country']);
+    $email = htmlspecialchars($_POST['email']);
+    $login = htmlspecialchars($_POST['login']);
+    $password = htmlspecialchars($_POST['password']);
     $authKey = randomAuthKey();
     if ($password != $_POST['password1']) {
         $err = "<div class=\"alert alert-danger\" role=\"alert\"><h3 class=\"text-center mt-2\">Пароли не совпадают, повторите попытку</h3></div>";
     } else {
-        $data = $connection->query("INSERT INTO registrations 
+        $data = $connection->prepare("INSERT INTO registrations 
         (userName, surname, country, email, login, userPassword, authKey) VALUES 
-        ('$name', '$surname', '$country', '$email', '$login', '$password', '$authKey')");
+        (:name, :surname, :country, :email, :login, :password, :authKey)");
+        $reg = [
+               'name' => $name,
+            'surname' => $surname,
+            'country' => $country,
+            'email' => $email,
+            'login' => $login,
+            'password' => $password,
+            'authKey' => $authKey
+        ];
+        $data->execute($reg);
 
         if ($data) {
             $m = mail($email, 'Подтвердите почту', "http://writesite/registration.php?auth=$authKey");

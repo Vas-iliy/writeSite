@@ -1,7 +1,7 @@
 <?php
 $connection = new PDO('mysql:host=localhost; dbname=write', 'root', 'root');
 
-$id = $_GET['id'];
+$id = (int)$_GET['id'];
 
 $state = $connection->query("SELECT id_state, state_title, login, cat_title
 FROM states JOIN registrations USING (id_login) JOIN cats USING (id_cat) WHERE id_login = '$id'");

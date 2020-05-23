@@ -2,29 +2,38 @@
 
 $connection = new PDO('mysql:host=localhost; dbname=write', 'root', 'root');
 
-$id = $_GET['id'];
+$id = (int)$_GET['id'];
 
 if (isset($_POST['state'])) {
-    $title = $_POST['title'];
-    $cat = $_POST['cat'];
-    $content = $_POST['content'];
+    $title = htmlspecialchars($_POST['title']);
+    $cat = htmlspecialchars($_POST['cat']);
+    $content = htmlspecialchars($_POST['content']);
     $cat = strtolower($cat);
 
     $searchCat = $connection->query("SELECT id_cat FROM cats WHERE cat_title = '$cat'");
     $searchCat = $searchCat->fetch();
     if (!$searchCat) {
-        $writeCat = $connection->query("INSERT INTO cats (cat_title) VALUE ('$cat')");
+        $write = $writeCat = $connection->prepare("INSERT INTO cats (cat_title) VALUE (:cat)");
+        $write->bindParam(':cat', $cat);
+        $write->execute();
     }
 
     $search = $connection->query("SELECT id_cat FROM cats WHERE cat_title = '$cat'");
     $search = $search->fetch();
     $id_cat = $search['id_cat'];
 
-    $writeState = $connection->query("INSERT INTO states (id_login, id_cat, state_title, state_content) 
-    VALUES ('$id', '$id_cat', '$title', '$content') ");
+    $writeState = $connection->prepare("INSERT INTO states (id_login, id_cat, state_title, state_content) 
+    VALUES (:id, :id_cat, :title, :content) ");
+    $wS = [
+            'id' => $id,
+        'id_cat' => $id_cat,
+        'title' => $title,
+        'content' => $content
+    ];
+    $writeState->execute($wS);
 
     if ($_POST['tegs']) {
-        $tegs = $_POST['tegs'];
+        $tegs = htmlspecialchars($_POST['tegs']);
         $tegs = strtolower($tegs);
         $tegs = explode(',', $tegs);
         $countTeg = count($tegs);
@@ -37,7 +46,9 @@ if (isset($_POST['state'])) {
             $searchTeg = $connection->query("SELECT id_teg FROM tegs WHERE teg_title = '$teg' ");
             $searchTeg =$searchTeg->fetch();
             if (!$searchTeg) {
-                $connection->query("INSERT INTO tegs (teg_title) VALUE ('$teg')");
+                $tag = $connection->query("INSERT INTO tegs (teg_title) VALUE (:teg)");
+                $tag->bindParam(':teg', $teg);
+                $tag->execute();
             }
 
             $searchTeg = $connection->query("SELECT id_teg FROM tegs WHERE teg_title = '$teg' ");
@@ -117,9 +128,6 @@ if (isset($_POST['state'])) {
         }
     }
 }
-
-
-
 
 ?>
 

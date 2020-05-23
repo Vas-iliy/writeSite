@@ -3,8 +3,8 @@ $connection = new PDO('mysql:host=localhost; dbname=write', 'root', 'root');
 session_start();
 
 if ($_POST['login']) {
-    $login = $_POST['login'];
-    $password = $_POST['password'];
+    $login = htmlspecialchars($_POST['login']);
+    $password = htmlspecialchars($_POST['password']);
     $user = $connection->query("SELECT id_login, email, login, userPassword, userValidation FROM registrations 
     WHERE (login or email) = '$login' AND userPassword = '$password' AND userValidation = true ");
 
