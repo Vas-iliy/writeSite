@@ -150,14 +150,14 @@ if ($_POST['submit']) {
     </div>
 
     <div class="card mt-3 col-lg-8">
-        <p class="text-center">Комментарии пользователей.</p>
+        <h4 class="text-center">Комментарии пользователей.</h4>
         <hr>
 
         <table border="1">
             <tr>
-                <th width="100px">Время</th>
-                <th width="100px">Логин</th>
-                <th>Сообщение</th>
+                <th width="100px" class="text-center">Время</th>
+                <th width="100px" class="text-center">Логин</th>
+                <th class="text-center">Сообщение</th>
             </tr>
         <?foreach ($comments as $comment):?>
             <tr><td width="100px"><?=$comment['comment_newTime']?></td><td width="100px"><?=$comment['login']?></td><td><?=$comment['com']?></td></tr>
