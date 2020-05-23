@@ -45,36 +45,85 @@ if ($_POST['submit']) {
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Index.html</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
+<div class="container">
+    <hr>
+    <ul class="nav justify-content-around align-items-center"> <!--bootstrap flex-->
+        <li class="nav-item text-center">
+            <img src="https://img.icons8.com/fluent/48/000000/cat.png"/>
+            <h3 class="h3">All about cats</h3>
+        </li>
 
-<div class="article">
-    <?foreach ($state as $st):?>
-        <div class="state">
-            <h2><?=$st['state_title']?></h2>
-            <h3><?=$st['cat_title']?></h3>
-            <p><?=$st['state_content']?></p>
+        <nav class="navbar navbar-light bg-light mt-3">
+            <form class="form-inline align-items-center"> <!--align-items-center- разместить вцентре-->
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>
+        <div class="d-flex">
+            <div class="btn-group mt-3">
+                <button type="button"  class="btn btn-outline-primary dropdown-toggle " data-toggle="dropdown"
+                        style = "width : 250px" aria-haspopup="true" aria-expanded="false">
+                    Войти
+                </button>
+                <form class="dropdown-menu p-4" method="post">
+                    <label for="exampleDropdownFormEmail2"><?=$mail?></label>
+                    <div class="form-group ">
+                        <label for="exampleDropdownFormEmail2">Логин или email</label>
+                        <input type="text" class="form-control" id="exampleDropdownFormEmail2" name="login" required>
+                    </div>
+                    <div class="form-group ">
+                        <label for="exampleDropdownFormPassword2">Пароль</label>
+                        <input type="password" class="form-control" id="exampleDropdownFormPassword2" name="password" required>
+                    </div>
+                    <input type="submit" class="btn btn-outline-success mt-1 " style="width: 200px" name="submit" value="Войти">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="registration.php">Зарегистрироваться</a>
+                    </li>
+
+                </form>
+            </div>
+
         </div>
+
+    </ul>
+</div>
+
+    <?foreach ($state as $st):?>
+        <div class="card mt-5" ">
+            <?foreach ($images as $img):?>
+                <div style='display: flex; align-items: flex-end; flex-wrap: wrap'>
+                    <?$nameImg = $nameDirectImg . '/' . $img['id_img'] . $img['image_title'] . '.' . $img['extension'];
+                    if (file_exists($nameImg)):?>
+                        <img src="<?=$nameImg?>" class="card-img-top img-thumbnail" style="width: 200px" alt="...">
+                    <?endif;?>
+                </div>
+            <?endforeach;?>
+
+            <div class="card-body">
+                <blockquote class="cart-title blockquote text-center">
+                    <p class="mb-5 mt-2 h1"><?=$st['state_title']?></p>
+                </blockquote>
+                <p class="card-text text-justify"><?=$st['state_content']?></p>
+                <a href="#" class="btn btn-primary">Переход куда-нибудь</a>
+            </div>
+        </div>
+    <?endforeach;?>
+
         <div class="user">
             <h3><a href=""><?=$st['login']?></a></h3>
             <h4><?=$st['userName']?></h4>
             <h4><?=$st['surname']?></h4>
             <h4><?=$st['country']?></h4>
         </div>
-    <?endforeach;?>
+
 </div>
 
-<div class="images">
-    <?foreach ($images as $img):?>
-        <div>
-            <?$nameImg = $nameDirectImg . '/' . $img['id_img'] . $img['image_title'] . '.' . $img['extension'];
-            if (file_exists($nameImg)):?>
-                <img src="<?=$nameImg?>" width="300">
-            <?endif;?>
-        </div>
-    <?endforeach;?>
-</div>
 
 <div class="newComment">
     <h3>Комментарии могут оставлять только авторизированные пользователи</h3>
