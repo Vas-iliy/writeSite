@@ -100,37 +100,38 @@ if ($_POST['submit']) {
         </div>
 
     </ul>
-</div>
+
+
+
+    <div >
 
     <?foreach ($state as $st):?>
-        <div class="card mt-5" ">
+        <div class="card mt-2 col-lg-8">
+            <div style='display: flex; align-items: flex-end; flex-wrap: wrap'>
             <?foreach ($images as $img):?>
-                <div style='display: flex; align-items: flex-end; flex-wrap: wrap'>
                     <?$nameImg = $nameDirectImg . '/' . $img['id_img'] . $img['image_title'] . '.' . $img['extension'];
                     if (file_exists($nameImg)):?>
-                        <img src="<?=$nameImg?>" class="card-img-top img-thumbnail" style="width: 200px" alt="...">
+                        <img src="<?=$nameImg?>" class="card-img-top img-thumbnail " style="width: 200px" alt="...">
                     <?endif;?>
-                </div>
             <?endforeach;?>
+            </div>
 
             <div class="card-body">
                 <blockquote class="cart-title blockquote text-center">
                     <p class="mb-5 mt-2 h1"><?=$st['state_title']?></p>
                 </blockquote>
                 <p class="card-text text-justify"><?=$st['state_content']?></p>
-                <a href="#" class="btn btn-primary">Переход куда-нибудь</a>
             </div>
+            <hr>
+            <p><a href="user/person.php"><?=$st['login']?></a> <?=$st['country']?></p>
         </div>
+
     <?endforeach;?>
 
-        <div class="user">
-            <h3><a href=""><?=$st['login']?></a></h3>
-            <h4><?=$st['userName']?></h4>
-            <h4><?=$st['surname']?></h4>
-            <h4><?=$st['country']?></h4>
-        </div>
+    </div>
 
 </div>
+
 
 
 <div class="newComment">
@@ -146,5 +147,13 @@ if ($_POST['submit']) {
     </form>
 </div>
 
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

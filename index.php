@@ -45,12 +45,13 @@ if ($_POST['reg']) {
             <h3 class="h3">All about cats</h3>
         </li>
 
-            <nav class="navbar navbar-light bg-light mt-3">
-                <form class="form-inline align-items-center"> <!--align-items-center- разместить вцентре-->
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </nav>
+        <nav class="navbar navbar-light bg-light mt-3">
+            <form class="form-inline align-items-center"> <!--align-items-center- разместить вцентре-->
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>
+
         <div class="d-flex">
             <div class="btn-group mt-3">
                 <button type="button"  class="btn btn-outline-primary dropdown-toggle " data-toggle="dropdown"
