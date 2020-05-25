@@ -2,7 +2,7 @@
 
 $connection = new PDO('mysql:host=localhost; dbname=write', 'root', 'root');
 
-$id = (int)$_GET['id'];
+$loginId = (int)$_GET['$loginId'];
 
 if (isset($_POST['state'])) {
     $title = htmlspecialchars($_POST['title']);
@@ -25,7 +25,7 @@ if (isset($_POST['state'])) {
     $writeState = $connection->prepare("INSERT INTO states (id_login, id_cat, state_title, state_content) 
     VALUES (:id, :id_cat, :title, :content) ");
     $wS = [
-            'id' => $id,
+            'id' => $loginId,
         'id_cat' => $id_cat,
         'title' => $title,
         'content' => $content
@@ -78,7 +78,7 @@ if (isset($_POST['state'])) {
     }
 
     //создание директории с картинками
-    $nameUser = $connection->query("SELECT login FROM registrations WHERE id_login = '$id'");
+    $nameUser = $connection->query("SELECT login FROM registrations WHERE id_login = '$loginId'");
     $nameUser = $nameUser->fetch();
     $nameDir = 'images/' . $nameUser['login'] . $id_state;
     mkdir($nameDir);
@@ -131,7 +131,7 @@ if (isset($_POST['state'])) {
 
 ?>
 
-<a href="../user.php?id=<?=$id?>">обратно</a>
+<a href="../user.php?$loginId=<?=$loginId?>">обратно</a>
     <form method="post" enctype="multipart/form-data">
         <input type="text" name="title" required placeholder="Название статьи"><br/>
         <input type="text" name="cat" required placeholder="Название Категории"><br/>

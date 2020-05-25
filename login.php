@@ -20,8 +20,8 @@ if ($_POST['login']) {
     elseif ($user) {
         $_SESSION['login'] = $login;
         $_SESSION['password'] = $password;
-        $id = $user['id_login'];
-        header("Location:user.php?id=$id");
+        $loginId = $user['id_login'];
+        header("Location:user.php?id=$loginId");
     } else {
         echo 'Неверный логин или пароль';
     }

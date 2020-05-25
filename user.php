@@ -7,12 +7,12 @@ if (!$_SESSION['login']) {
     header('Location:index.php');
 }
 
-$id = (int)$_GET['id'];
+$loginId = (int)$_GET['loginId'];
 
 $state = $connection->query("SELECT id_state, state_title, login, cat_title
 FROM states JOIN registrations USING (id_login) JOIN cats USING (id_cat) WHERE state_moder = 'yes'");
 
-$user = $connection->query("SELECT login FROM registrations WHERE id_login = '$id'");
+$user = $connection->query("SELECT login FROM registrations WHERE id_login = '$loginId'");
 $user = $user->fetch();
 $name = $user['login'];
 
@@ -55,10 +55,10 @@ if ($_POST['exit']) {
                 <?=$name?>
             </button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="user/person.php?id=<?=$id?>">Моя страница</a>
+                <a class="dropdown-item" href="user/person.php?loginId=<?=$loginId?>">Моя страница</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="user/newState.php?id=<?=$id?>">Добавить статью</a>
-                <a class="dropdown-item" href="user/listMyStates.php?id=<?=$id?>">Список статей</a>
+                <a class="dropdown-item" href="user/newState.php?loginId=<?=$loginId?>">Добавить статью</a>
+                <a class="dropdown-item" href="user/listMyStates.php?loginId=<?=$loginId?>">Список статей</a>
                 <div class="dropdown-divider"></div>
                 <form method="post"><input class="dropdown-item" type="submit" name="exit" value="Выйти"></form>
             </div>
@@ -75,7 +75,7 @@ if ($_POST['exit']) {
                     <h5 class="card-title"><?= $st['cat_title'] ?></h5>
                     <p class="card-text"><?= $st['login'] ?></p>
                     <div class="card-footer text-right">
-                        <a href="article.php?id=<?= $st['id_state']?>&idUser=<?=$id?>" class="btn btn-primary">Узнать больше</a>
+                        <a href="article.php?stateId=<?= $st['id_state']?>&loginId=<?=$loginId?>" class="btn btn-primary">Узнать больше</a>
                     </div>
 
                 </div>

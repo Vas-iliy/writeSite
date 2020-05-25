@@ -2,13 +2,13 @@
 
 $connection = new PDO('mysql:host=localhost; dbname=write', 'root', 'root');
 
-$id = (int)$_GET['id'];
+$stateId = (int)$_GET['stateId'];
 
 //Все старые элементы
 $oldState = $connection->query("SELECT state_title, state_content, cat_title FROM states 
-JOIN cats USING (id_cat) WHERE id_state = '$id'");
+JOIN cats USING (id_cat) WHERE id_state = '$stateId'");
 $oldTegs = $connection->query("SELECT teg_title FROM (tegs JOIN states_tegs USING (id_teg)) 
-JOIN states USING (id_state) WHERE id_state = '$id'");
+JOIN states USING (id_state) WHERE id_state = '$stateId'");
 $oldState = $oldState->fetch();
 
 $oldTitle = $oldState['state_title'];
@@ -20,7 +20,7 @@ foreach ($oldTegs as $teg) {
     $oldTeg .= $teg['teg_title'] . ',';
 }
 
-$searchLog = $connection->query("SELECT id_login, login FROM registrations JOIN states USING (id_login) WHERE id_state = '$id'");
+$searchLog = $connection->query("SELECT id_login, login FROM registrations JOIN states USING (id_login) WHERE id_state = '$stateId'");
 $searchLog = $searchLog->fetch();
 $id_login = $searchLog['id_login'];
 
@@ -50,7 +50,7 @@ if (isset($_POST['state'])) {
     $id_cat = $search['id_cat'];
 
     $writeState = $connection->prepare("UPDATE states SET id_cat = :id_cat, state_title = :title,
-    state_content = :content WHERE id_state = '$id'");
+    state_content = :content WHERE id_state = '$stateId'");
     $wS = [
         'id_cat' => $id_cat,
         'title' => $title,
@@ -75,7 +75,7 @@ if (isset($_POST['state'])) {
                 $searchTeg = $connection->query("SELECT id_teg FROM tegs WHERE teg_title = '$teg' ");
                 $searchTeg = $searchTeg->fetch();
                 $id_teg = $searchTeg['id_teg'];
-                $connection->query("INSERT INTO states_tegs (id_state ,id_teg) VALUES ('$id','$id_teg')");
+                $connection->query("INSERT INTO states_tegs (id_state ,id_teg) VALUES ('$stateId','$id_teg')");
             }
         }
     }
@@ -94,7 +94,7 @@ if (isset($_POST['state'])) {
     }
 
 
-    $nameDir = 'images/' . $searchLog['login'] . $id;
+    $nameDir = 'images/' . $searchLog['login'] . $stateId;
 
     foreach ($files as $file) {
         $fileName = strval($file['name']);
@@ -120,7 +120,7 @@ if (isset($_POST['state'])) {
             if ($fileSize < 5000000) {
                 if ($fileError == 0) {
                     $new = $connection->query("INSERT INTO images (id_state, id_login, image_title, extension) 
-                    VALUES ('$id', '$id_login', '$fileName', '$fileExtension')");
+                    VALUES ('$stateId', '$id_login', '$fileName', '$fileExtension')");
 
                     $lastId = $connection->query("SELECT MAX(id_img) FROM images");
                     $lastId = $lastId->fetch();
@@ -142,16 +142,16 @@ if (isset($_POST['state'])) {
     }
 
     $moderState = $connection->query("SELECT id_state FROM states WHERE state_moder = 'yes' 
-    AND id_state = '$id'");
+    AND id_state = '$stateId'");
     $moderState = $moderState->fetch();
     if ($moderState['id_state']) {
         $connection->query("UPDATE states SET state_moder = NULL, state_newTime = current_timestamp 
-        WHERE id_state = '$id'");
+        WHERE id_state = '$stateId'");
     }
 }
 
 if ($_POST) {
-    header("Location:redactorState.php?id=$id");
+    header("Location:redactorState.php?stateId=$stateId");
 }
 
 $imgData = $connection->query("SELECT id_img, image_title, extension FROM images");
@@ -159,7 +159,7 @@ $imgData = $connection->query("SELECT id_img, image_title, extension FROM images
 echo "<div style='display: flex; align-items: flex-end; flex-wrap: wrap'>";
 
 foreach ($imgData as $img) {
-    $image = "images/" . $searchLog['login'] . $id . '/'  . $img['id_img'] . $img['image_title'] . '.' . $img['extension'];
+    $image = "images/" . $searchLog['login'] . $stateId . '/'  . $img['id_img'] . $img['image_title'] . '.' . $img['extension'];
 
     if (file_exists($image)) {
         echo "<div>";
@@ -220,11 +220,11 @@ echo "</div>";
                 <?=$searchLog['login']?>
             </button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="user/person.php?id=<?=$id?>">Моя страница</a>
+                <a class="dropdown-item" href="user/person.php?loginId=<?=$id_login?>">Моя страница</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="user/listMyStates.php?id=<?=$id?>">Список статей</a>
+                <a class="dropdown-item" href="user/listMyStates.php?loginId=<?=$id_login?>">Список статей</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="user.php?id=<?=$id_login?>">На главную</a> //аааа, это не тот ауди бляяяя
+                <a class="dropdown-item" href="user.php?loginId=<?=$id_login?>">На главную</a> //аааа, это не тот ауди бляяяя
                 <div class="dropdown-divider"></div>
                 <form method="post"><input class="dropdown-item" type="submit" name="exit" value="Выйти"></form>
             </div>

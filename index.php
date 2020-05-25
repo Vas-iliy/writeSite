@@ -11,8 +11,8 @@ if ($_POST['login']) {
         if ($_POST['login'] == $us['login'] && $_POST['password'] == $us['userPassword']) {
             $_SESSION['login'] = $us['login'];
             $_SESSION['password'] = $us['userPassword'];
-            $id = $us['id_login'];
-            header("Location:user.php?id=$id");
+            $loginId = $us['id_login'];
+            header("Location:user.php?loginId=$loginId");
         }
         $mail = 'Неверный логин или пароль';
     }
@@ -89,7 +89,7 @@ if ($_POST['reg']) {
             <h5 class="card-title"><?=$st['cat_title']?></h5>
             <p class="card-text"><?=$st['login']?></p>
             <div class="card-footer text-right">
-                <a  href="article.php?id=<?=$st['id_state']?>" class="btn btn-primary">Узнать больше</a>
+                <a  href="article.php?stateId=<?=$st['id_state']?>" class="btn btn-primary">Узнать больше</a>
             </div>
 
         </div>

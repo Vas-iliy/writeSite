@@ -1,7 +1,7 @@
 <?php
 
 $connection = new PDO('mysql:host=localhost; dbname=write', 'root', 'root');
-$id = (int)$_GET['id'];
+$stateId = (int)$_GET['stateId'];
 $state = $connection->query("SELECT state_title, state_content, state_newTime, userName, 
 surname, country, login, cat_title FROM states JOIN registrations USING (id_login) JOIN cats USING (id_cat) 
 WHERE id_state = '$id'");
@@ -9,10 +9,10 @@ WHERE id_state = '$id'");
 $images = $connection->query("SELECT * FROM  images ");
 
 $comments = $connection->query("SELECT comment_newTime, login, com FROM states JOIN comments USING (id_state) 
-WHERE id_state = '$id' AND comment_moder = 'yes' ORDER BY comment_newTime DESC ");
+WHERE id_state = '$stateId' AND comment_moder = 'yes' ORDER BY comment_newTime DESC ");
 
 $informImg = $connection->query("SELECT id_state, login FROM states JOIN registrations USING (id_login) 
-WHERE id_state = '$id' ");
+WHERE id_state = '$stateId' ");
 
 $informImg = $informImg->fetch();
 $nameDirectImg = 'user/images/' . $informImg['login'] . $informImg['id_state'];
@@ -29,11 +29,11 @@ if ($_POST['submit']) {
             $writeIdCom = $writeIdCom->fetch();
             $writeIdCom = $writeIdCom['id_login'];
 
-            $write = $connection->prepare("INSERT  comments (id_login, id_state, com, login ) 
-            VALUES (:writeIdCom, :id, :text, :login)");
+            $write = $connection->prepare("INSERT INTO comments (id_login, id_state, com, login ) 
+            VALUES (:writeIdCom, :stateId, :text, :login)");
             $com = [
                     'writeIdCom' => $writeIdCom,
-                    'id' => $id,
+                    'stateId' => $stateId,
                     'text' => $text,
                     'login' => $login
             ];
@@ -143,7 +143,7 @@ if ($_POST['submit']) {
                 <label for="exampleInputPassword1">Комментарий</label>
                 <textarea name="comment" class="form-control"  id="exampleComment" cols="30" rows="10"></textarea>
             </div>
-            <?if ($_GET['idUser']):?>
+            <?if ($_GET['loginId']):?>
                 <button type="submit" name="submit" class="btn btn-primary">Submit</button>
             <?endif;?>
         </form>
