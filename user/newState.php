@@ -115,7 +115,7 @@ if (isset($_POST['state'])) {
             if ($fileSize < 5000000) {
                 if ($fileError == 0) {
                     $new = $connection->query("INSERT INTO images (id_state, id_login, image_title, extension) 
-                    VALUES ('$id_state', '$id', '$fileName', '$fileExtension')");
+                    VALUES ('$id_state', '$loginId', '$fileName', '$fileExtension')");
 
                     $lastId = $connection->query("SELECT MAX(id_img) FROM images");
                     $lastId = $lastId->fetch();
@@ -138,17 +138,35 @@ if (isset($_POST['state'])) {
 }
 
 ?>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-<a href="../user.php?$loginId=<?=$loginId?>">обратно</a>
-    <form method="post" enctype="multipart/form-data">
-        <input type="text" name="title" required placeholder="Название статьи"><br/>
-        <input type="text" name="cat" required placeholder="Название Категории"><br/>
-        <textarea name="content" id="" cols="30" rows="10" required placeholder="Текст статьи"></textarea><br/>
-        <textarea name="tegs" id="" cols="30" rows="10" placeholder="Введите теги через запятую"></textarea><br/></br>
-        <input type="file" name="file[]" multiple required> <br/> </br>
-        <input type="submit" name="state" >
 
-    </form>
+
+
+<div class="container">
+    <div class="card p-2 w-50 mx-auto">
+        <div class="card-header text-center">
+            <img src="https://img.icons8.com/fluent/48/000000/cat.png"/>
+            <h3 class="h3">Register for know more</h3>
+        </div>
+        <form class="card-body text-center" method="post">
+            <input type="text" class="form-control" name="title" required placeholder="Название статьи"><br/>
+            <input type="text" class="form-control" name="cat" required placeholder="Название Категории"><br/>
+            <textarea name="content" class="form-control" id="" cols="30" rows="10" required placeholder="Текст статьи"></textarea><br/>
+            <textarea name="tegs" class="form-control" id="" cols="30" rows="10" placeholder="Введите теги через запятую"></textarea><br/>
+            <input type="file" name="file[]" multiple required> <br/> </br>
+            <input type="submit" class="btn btn-success mx-auto" name="state" value="Добавить статью" >
+        </form>
+        <div class="card-footer  ">
+            <div class="row justify-content-center">
+                <p class="m-0 p-0">Передумали?</p>
+                <a class="ml-3 "href="../user.php?loginId=<?=$loginId?>">Обратно</a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
 
 
 
