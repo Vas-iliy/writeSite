@@ -4,7 +4,7 @@ $connection = new PDO('mysql:host=localhost; dbname=write', 'root', 'root');
 $stateId = (int)$_GET['stateId'];
 $state = $connection->query("SELECT state_title, state_content, state_newTime, userName, 
 surname, country, login, cat_title FROM states JOIN registrations USING (id_login) JOIN cats USING (id_cat) 
-WHERE id_state = '$id'");
+WHERE id_state = '$stateId'");
 
 $images = $connection->query("SELECT * FROM  images ");
 

@@ -6,11 +6,11 @@ if (!$_SESSION['login']) {
     header('Location:../index.php');
 }
 
+$loginId = (int)$_GET['loginId'];
 if ($_POST['exit']) {
     session_destroy();
     header('Location:../index.php');
 }
-$loginId = (int)$_GET['loginId'];
 
 if (isset($_POST['state'])) {
     $title = htmlspecialchars($_POST['title']);
