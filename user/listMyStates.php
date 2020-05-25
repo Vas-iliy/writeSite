@@ -1,7 +1,16 @@
 <?php
 $connection = new PDO('mysql:host=localhost; dbname=write', 'root', 'root');
+session_start();
+if (!$_SESSION['login']) {
+    header('Location:..//index.php');
+}
 
-$loginId = (int)$_GET['$loginId'];
+$loginId = (int)$_GET['loginId'];
+
+if ($_POST['exit']) {
+    session_destroy();
+    header('Location:../index.php');
+}
 
 $state = $connection->query("SELECT id_state, state_title, login, cat_title
 FROM states JOIN registrations USING (id_login) JOIN cats USING (id_cat) WHERE id_login = '$loginId'");
@@ -44,13 +53,14 @@ $list = 'list';
         <div class="btn-group mt-3">
             <button type="button" class="btn btn-outline-primary dropdown-toggle " data-toggle="dropdown"
                     style = "width : 170px" aria-haspopup="true" aria-expanded="false">
-                <?=$name?>
+                <?=$user['login']?>
             </button>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="user/person.php?$loginId=<?=$loginId?>">Моя страница</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="user/newState.php?$loginId=<?=$loginId?>">Добавить статью</a>
-                <a class="dropdown-item" href="user/listMyStates.php?$loginId=<?=$loginId?>">Список статей</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="../user.php?$loginId=<?=$loginId?>">На главную</a>
                 <div class="dropdown-divider"></div>
                 <form method="post"><input class="dropdown-item" type="submit" name="exit" value="Выйти"></form>
             </div>

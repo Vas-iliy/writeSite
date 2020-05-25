@@ -1,9 +1,15 @@
 <?php
 
 $connection = new PDO('mysql:host=localhost; dbname=write', 'root', 'root');
-
+session_start();
+if (!$_SESSION['login']) {
+    header('Location:../index.php');
+}
 $stateId = (int)$_GET['stateId'];
-
+if ($_POST['exit']) {
+    session_destroy();
+    header('Location:../index.php');
+}
 //Все старые элементы
 $oldState = $connection->query("SELECT state_title, state_content, cat_title FROM states 
 JOIN cats USING (id_cat) WHERE id_state = '$stateId'");
@@ -224,7 +230,7 @@ echo "</div>";
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="user/listMyStates.php?loginId=<?=$id_login?>">Список статей</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="user.php?loginId=<?=$id_login?>">На главную</a> //аааа, это не тот ауди бляяяя
+                <a class="dropdown-item" href="../user.php?loginId=<?=$id_login?>">На главную</a>
                 <div class="dropdown-divider"></div>
                 <form method="post"><input class="dropdown-item" type="submit" name="exit" value="Выйти"></form>
             </div>

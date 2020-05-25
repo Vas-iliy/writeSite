@@ -21,7 +21,7 @@ if ($_POST['login']) {
         $_SESSION['login'] = $login;
         $_SESSION['password'] = $password;
         $loginId = $user['id_login'];
-        header("Location:user.php?id=$loginId");
+        header("Location:user.php?loginId=$loginId");
     } else {
         echo 'Неверный логин или пароль';
     }
