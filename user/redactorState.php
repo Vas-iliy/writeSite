@@ -20,7 +20,9 @@ foreach ($oldTegs as $teg) {
     $oldTeg .= $teg['teg_title'] . ',';
 }
 
-
+$searchLog = $connection->query("SELECT id_login, login FROM registrations JOIN states USING (id_login) WHERE id_state = '$id'");
+$searchLog = $searchLog->fetch();
+$id_login = $searchLog['id_login'];
 
 
 
@@ -47,10 +49,9 @@ if (isset($_POST['state'])) {
     $search = $search->fetch();
     $id_cat = $search['id_cat'];
 
-    $writeState = $connection->prepare("INSERT INTO states (id_login, id_cat, state_title, state_content) 
-    VALUES (:id, :id_cat, :title, :content) ");
+    $writeState = $connection->prepare("UPDATE states SET id_cat = :id_cat, state_title = :title,
+    state_content = :content WHERE id_state = '$id'");
     $wS = [
-        'id' => $id,
         'id_cat' => $id_cat,
         'title' => $title,
         'content' => $content
@@ -62,32 +63,22 @@ if (isset($_POST['state'])) {
         $tegs = strtolower($tegs);
         $tegs = explode(',', $tegs);
         $countTeg = count($tegs);
-        $searchState = $connection->query("SELECT MAX(id_state) FROM states");
-        $searchState = $searchState->fetch();
-        $id_state = $searchState[0];
 
         for ($i=0; $i < $countTeg; $i++) {
             $teg = $tegs[$i];
             $searchTeg = $connection->query("SELECT id_teg FROM tegs WHERE teg_title = '$teg' ");
             $searchTeg =$searchTeg->fetch();
             if (!$searchTeg) {
-                $t = $connection->query("INSERT INTO tegs (teg_title) VALUE (:teg)");
-                $t->bindParam(':teg', $teg);
-                $t->execute();
+                $tag = $connection->prepare("INSERT INTO tegs (teg_title) VALUE (:teg)");
+                $tag->bindParam(':teg', $teg);
+                $tag->execute();
+                $searchTeg = $connection->query("SELECT id_teg FROM tegs WHERE teg_title = '$teg' ");
+                $searchTeg = $searchTeg->fetch();
+                $id_teg = $searchTeg['id_teg'];
+                $connection->query("INSERT INTO states_tegs (id_state ,id_teg) VALUES ('$id','$id_teg')");
             }
-
-            $searchTeg = $connection->query("SELECT id_teg FROM tegs WHERE teg_title = '$teg' ");
-            $searchTeg = $searchTeg->fetch();
-            $id_teg = $searchTeg['id_teg'];
-
-            $writeStates_tegs = $connection->query("INSERT INTO states_tegs (id_state ,id_teg) 
-            VALUES ('$id_state','$id_teg')");
         }
     }
-
-    $searchState = $connection->query("SELECT MAX(id_state) FROM states");
-    $searchState = $searchState->fetch();
-    $id_state = $searchState[0];
 
     //начинаем работу с файлом
     $files = array();
@@ -102,11 +93,8 @@ if (isset($_POST['state'])) {
         }
     }
 
-    //создание директории с картинками
-    $nameUser = $connection->query("SELECT login FROM registrations WHERE id_login = '$id'");
-    $nameUser = $nameUser->fetch();
-    $nameDir = 'images/' . $nameUser['login'] . $id_state;
-    mkdir($nameDir);
+
+    $nameDir = 'images/' . $searchLog['login'] . $id;
 
     foreach ($files as $file) {
         $fileName = strval($file['name']);
@@ -132,7 +120,7 @@ if (isset($_POST['state'])) {
             if ($fileSize < 5000000) {
                 if ($fileError == 0) {
                     $new = $connection->query("INSERT INTO images (id_state, id_login, image_title, extension) 
-                    VALUES ('$id_state', '$id', '$fileName', '$fileExtension')");
+                    VALUES ('$id', '$id_login', '$fileName', '$fileExtension')");
 
                     $lastId = $connection->query("SELECT MAX(id_img) FROM images");
                     $lastId = $lastId->fetch();
@@ -157,17 +145,95 @@ if (isset($_POST['state'])) {
     AND id_state = '$id'");
     $moderState = $moderState->fetch();
     if ($moderState['id_state']) {
-        $connection->query("UPDATE states SET state_moder = NULL, time = current_timestamp 
+        $connection->query("UPDATE states SET state_moder = NULL, state_newTime = current_timestamp 
         WHERE id_state = '$id'");
     }
 }
+
+if ($_POST) {
+    header("Location:redactorState.php?id=$id");
+}
+
+$imgData = $connection->query("SELECT id_img, image_title, extension FROM images");
+
+echo "<div style='display: flex; align-items: flex-end; flex-wrap: wrap'>";
+
+foreach ($imgData as $img) {
+    $image = "images/" . $searchLog['login'] . $id . '/'  . $img['id_img'] . $img['image_title'] . '.' . $img['extension'];
+
+    if (file_exists($image)) {
+        echo "<div>";
+        echo "<img width='200'  src='$image'>";
+        echo "<form method='post'><input type='submit'  name='delete" . $img['id_img'] . "' value='Удалить'></form>";
+        echo "</div>";
+    }
+
+    $delete = "delete" . $img['id_img'];
+    if (isset($_POST[$delete])) {
+        $imageId = $img['id_img'];
+        //удаление из БД картинки с айди, кнопку которого нажали
+        $connection->query("DELETE FROM images WHERE id_img = '$imageId'");
+
+        //так же картинку удаляем и с сайта
+        if (file_exists($image)) {
+            unlink($image);
+        }
+    }
+}
+
+echo "</div>";
 
 
 
 
 ?>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Index.html</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <hr>
+    <ul class="nav justify-content-around align-items-center">
+        <li class="nav-item text-center">
+            <img src="https://img.icons8.com/fluent/48/000000/cat.png"/>
+            <h3 class="h3">All about cats</h3>
+        </li>
+
+        <nav class="navbar navbar-light bg-light mt-3">
+            <form class="form-inline align-items-center">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>
+
+        <div class="btn-group mt-3">
+            <button type="button" class="btn btn-outline-primary dropdown-toggle " data-toggle="dropdown"
+                    style = "width : 170px" aria-haspopup="true" aria-expanded="false">
+                <?=$searchLog['login']?>
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="user/person.php?id=<?=$id?>">Моя страница</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="user/listMyStates.php?id=<?=$id?>">Список статей</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="user.php?id=<?=$id_login?>">На главную</a> //аааа, это не тот ауди бляяяя
+                <div class="dropdown-divider"></div>
+                <form method="post"><input class="dropdown-item" type="submit" name="exit" value="Выйти"></form>
+            </div>
+        </div>
+
+    </ul>
+</div>
+
 <h2>Вы зашли для редкатирования статьи?</h2>
-<a href="../user.php?id=<?=$id?>">обратно</a>
 <form method="post" enctype="multipart/form-data">
     <input type="text" name="title" required value="<?=$oldTitle?>"><br/>
     <input type="text" name="cat" required value="<?=$oldCat?>"><br/>

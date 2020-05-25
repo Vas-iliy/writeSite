@@ -46,7 +46,7 @@ if (isset($_POST['state'])) {
             $searchTeg = $connection->query("SELECT id_teg FROM tegs WHERE teg_title = '$teg' ");
             $searchTeg =$searchTeg->fetch();
             if (!$searchTeg) {
-                $tag = $connection->query("INSERT INTO tegs (teg_title) VALUE (:teg)");
+                $tag = $connection->prepare("INSERT INTO tegs (teg_title) VALUE (:teg)");
                 $tag->bindParam(':teg', $teg);
                 $tag->execute();
             }
