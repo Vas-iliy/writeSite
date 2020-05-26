@@ -65,7 +65,7 @@ if (isset($_POST['state'])) {
     $writeState->execute($wS);
 
     if ($_POST['tegs']) {
-        $tegs = $_POST['tegs'];
+        $tegs = htmlspecialchars($_POST['tegs']);
         $tegs = strtolower($tegs);
         $tegs = explode(',', $tegs);
         $countTeg = count($tegs);
@@ -78,9 +78,11 @@ if (isset($_POST['state'])) {
                 $tag = $connection->prepare("INSERT INTO tegs (teg_title) VALUE (:teg)");
                 $tag->bindParam(':teg', $teg);
                 $tag->execute();
+
                 $searchTeg = $connection->query("SELECT id_teg FROM tegs WHERE teg_title = '$teg' ");
                 $searchTeg = $searchTeg->fetch();
                 $id_teg = $searchTeg['id_teg'];
+
                 $connection->query("INSERT INTO states_tegs (id_state ,id_teg) VALUES ('$stateId','$id_teg')");
             }
         }
@@ -122,6 +124,7 @@ if (isset($_POST['state'])) {
         $fileName = preg_replace('/[0-9]/', '',  $fileName);
 
         $arrExtension = ['jpg', 'jpeg', 'png'];
+
         if (in_array($fileExtension, $arrExtension)) {
             if ($fileSize < 5000000) {
                 if ($fileError == 0) {

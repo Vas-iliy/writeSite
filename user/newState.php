@@ -57,14 +57,14 @@ if (isset($_POST['state'])) {
                 $tag = $connection->prepare("INSERT INTO tegs (teg_title) VALUE (:teg)");
                 $tag->bindParam(':teg', $teg);
                 $tag->execute();
+                $searchTeg = $connection->query("SELECT id_teg FROM tegs WHERE teg_title = '$teg' ");
+                $searchTeg = $searchTeg->fetch();
+                $id_teg = $searchTeg['id_teg'];
+
+                $connection->query("INSERT INTO states_tegs (id_state ,id_teg)  VALUES ('$id_state','$id_teg')");
             }
 
-            $searchTeg = $connection->query("SELECT id_teg FROM tegs WHERE teg_title = '$teg' ");
-            $searchTeg = $searchTeg->fetch();
-            $id_teg = $searchTeg['id_teg'];
 
-            $writeStates_tegs = $connection->query("INSERT INTO states_tegs (id_state ,id_teg) 
-            VALUES ('$id_state','$id_teg')");
         }
     }
 
