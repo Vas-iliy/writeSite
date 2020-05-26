@@ -82,7 +82,7 @@ $list = 'list';
                     <h5 class="card-title"><?= $st['cat_title'] ?></h5>
                     <p class="card-text"><?= $st['login'] ?></p>
                     <div class="card-footer text-right">
-                        <a href="redactorState.php?stateId=<?=$st['id_state']?>" class="btn btn-primary">Редактировать</a>
+                        <a href="state.php?stateId=<?=$st['id_state']?>&key=editing" class="btn btn-primary">Редактировать</a>
                     </div>
 
                 </div>

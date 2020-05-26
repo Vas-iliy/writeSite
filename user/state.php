@@ -269,29 +269,32 @@ if (isset($_POST['state'])) {
         $fileName = preg_replace('/[0-9]/', '',  $fileName);
 
         $arrExtension = ['jpg', 'jpeg', 'png'];
-        if (in_array($fileExtension, $arrExtension)) {
-            if ($fileSize < 5000000) {
-                if ($fileError == 0) {
-                    $new = $connection->query("INSERT INTO images (id_state, id_login, image_title, extension) 
+        if ($fileSize > 0) {
+            if (in_array($fileExtension, $arrExtension)) {
+                if ($fileSize < 5000000) {
+                    if ($fileError == 0) {
+                        $new = $connection->query("INSERT INTO images (id_state, id_login, image_title, extension) 
                     VALUES ('$stateId', '$loginId', '$fileName', '$fileExtension')");
 
-                    $lastId = $connection->query("SELECT MAX(id_img) FROM images");
-                    $lastId = $lastId->fetch();
-                    $lastId = $lastId[0];
+                        $lastId = $connection->query("SELECT MAX(id_img) FROM images");
+                        $lastId = $lastId->fetch();
+                        $lastId = $lastId[0];
 
-                    $fileNameNew = $lastId . $fileName . '.' . $fileExtension;
-                    $fileDestination = $nameDir . '/' . $fileNameNew;
-                    move_uploaded_file($fileTmp_name, $fileDestination);
+                        $fileNameNew = $lastId . $fileName . '.' . $fileExtension;
+                        $fileDestination = $nameDir . '/' . $fileNameNew;
+                        move_uploaded_file($fileTmp_name, $fileDestination);
 
+                    } else {
+                        echo 'Что-то пошло не так';
+                    }
                 } else {
-                    echo 'Что-то пошло не так';
+                    echo 'Слишком большой размер файла';
                 }
             } else {
-                echo 'Слишком большой размер файла';
+                echo 'Неверный вормат файла';
             }
-        } else {
-            echo 'Неверный вормат файла';
         }
+
     }
 
     if ($stateId) {
@@ -306,9 +309,9 @@ if (isset($_POST['state'])) {
 }
 
 if ($stateId) {
-    /*if ($_POST) {
+    if ($_POST) {
         header("Location:state.php?stateId=$stateId&key=editing");
-    }*/
+    }
     $link = "listMyStates.php?loginId=$id_login";
     $rendering = new State();
     $rendering->renderingOld($link, $oldTitle, $oldCat, $oldContent, $oldTeg, $searchLog['login'], $stateId);
