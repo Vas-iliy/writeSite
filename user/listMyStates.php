@@ -56,11 +56,11 @@ $list = 'list';
                 <?=$user['login']?>
             </button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="user/person.php?$loginId=<?=$loginId?>">Моя страница</a>
+                <a class="dropdown-item" href="person.php?loginId=<?=$loginId?>">Моя страница</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="user/newState.php?$loginId=<?=$loginId?>">Добавить статью</a>
+                <a class="dropdown-item" href="newState.php?loginId=<?=$loginId?>">Добавить статью</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="../user.php?$loginId=<?=$loginId?>">На главную</a>
+                <a class="dropdown-item" href="../user.php?loginId=<?=$loginId?>">На главную</a>
                 <div class="dropdown-divider"></div>
                 <form method="post"><input class="dropdown-item" type="submit" name="exit" value="Выйти"></form>
             </div>

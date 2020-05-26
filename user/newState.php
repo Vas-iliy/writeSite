@@ -155,8 +155,8 @@ if (isset($_POST['state'])) {
             <input type="text" class="form-control" name="cat" required placeholder="Название Категории"><br/>
             <textarea name="content" class="form-control" id="" cols="30" rows="10" required placeholder="Текст статьи"></textarea><br/>
             <textarea name="tegs" class="form-control" id="" cols="30" rows="10" placeholder="Введите теги через запятую"></textarea><br/>
-            <input type="file" name="file[]" multiple required> <br/> </br>
-            <input type="submit" class="btn btn-success mx-auto" name="state" value="Добавить статью" >
+            <input type="file" name="file[]" multiple> <br/> <br/>
+            <button type="submit" class="btn btn-success mx-auto" name="state" >Добавить статью</button>
         </form>
         <div class="card-footer  ">
             <div class="row justify-content-center">

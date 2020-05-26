@@ -246,7 +246,7 @@ echo "</div>";
     <textarea name="content" id="" cols="30" rows="10" required><?=$oldContent?></textarea><br/>
 
     <textarea name="tegs" id="" cols="30" rows="10"><?=$oldTeg?></textarea><br/></br>
-    <input type="file" name="file[]" multiple required> <br/> </br>
+    <input type="file" name="file[]" multiple> <br/> </br>
     <input type="submit" name="state" >
 
 </form>
