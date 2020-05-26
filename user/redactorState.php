@@ -162,36 +162,6 @@ if ($_POST) {
 
 $imgData = $connection->query("SELECT id_img, image_title, extension FROM images");
 
-echo "<div style='display: flex; align-items: flex-end; flex-wrap: wrap'>";
-
-foreach ($imgData as $img) {
-    $image = "images/" . $searchLog['login'] . $stateId . '/'  . $img['id_img'] . $img['image_title'] . '.' . $img['extension'];
-
-    if (file_exists($image)) {
-        echo "<div>";
-        echo "<img width='200'  src='$image'>";
-        echo "<form method='post'><input type='submit'  name='delete" . $img['id_img'] . "' value='Удалить'></form>";
-        echo "</div>";
-    }
-
-    $delete = "delete" . $img['id_img'];
-    if (isset($_POST[$delete])) {
-        $imageId = $img['id_img'];
-        //удаление из БД картинки с айди, кнопку которого нажали
-        $connection->query("DELETE FROM images WHERE id_img = '$imageId'");
-
-        //так же картинку удаляем и с сайта
-        if (file_exists($image)) {
-            unlink($image);
-        }
-    }
-}
-
-echo "</div>";
-
-
-
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -205,48 +175,57 @@ echo "</div>";
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
+
+
 <div class="container">
-    <hr>
-    <ul class="nav justify-content-around align-items-center">
-        <li class="nav-item text-center">
+    <div class="card p-2 w-50 mx-auto">
+        <div class="card-header text-center">
             <img src="https://img.icons8.com/fluent/48/000000/cat.png"/>
-            <h3 class="h3">All about cats</h3>
-        </li>
-
-        <nav class="navbar navbar-light bg-light mt-3">
-            <form class="form-inline align-items-center">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </nav>
-
-        <div class="btn-group mt-3">
-            <button type="button" class="btn btn-outline-primary dropdown-toggle " data-toggle="dropdown"
-                    style = "width : 170px" aria-haspopup="true" aria-expanded="false">
-                <?=$searchLog['login']?>
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="user/person.php?loginId=<?=$id_login?>">Моя страница</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="user/listMyStates.php?loginId=<?=$id_login?>">Список статей</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="../user.php?loginId=<?=$id_login?>">На главную</a>
-                <div class="dropdown-divider"></div>
-                <form method="post"><input class="dropdown-item" type="submit" name="exit" value="Выйти"></form>
+            <h3 class="h3">Register for know more</h3>
+        </div>
+        <hr>
+        <h2>Вы зашли для редкатирования статьи?</h2>
+        <hr>
+        <form class="card-body text-center" method="post" enctype="multipart/form-data">
+            <input type="text" class="form-control" name="title" value="<?=$oldTitle?>"><br/>
+            <input type="text" class="form-control" name="cat" value="<?=$oldCat?>"><br/>
+            <textarea name="content" class="form-control" id="" cols="30" rows="10" ><?=$oldContent?></textarea><br/>
+            <textarea name="tegs" class="form-control" id="" cols="30" rows="10"><?=$oldTeg?></textarea><br/>
+            <input type="file" name="file[]" multiple> <br/> <br/>
+            <button type="submit" class="btn btn-success mx-auto" name="state" >Редактировать</button>
+        </form>
+        <div class="card-footer  ">
+            <div class="row justify-content-center">
+                <a class="ml-3 "href="listMyStates.php?loginId=<?=$id_login?>">Обратно</a>
             </div>
         </div>
+    </div>
 
-    </ul>
+    <div style='display: flex; align-items: flex-end; flex-wrap: wrap'>
+        <?php
+        foreach ($imgData as $img) {
+            $image = "images/" . $searchLog['login'] . $stateId . '/'  . $img['id_img'] . $img['image_title'] . '.' . $img['extension'];
+
+            if (file_exists($image)) {
+                echo "<div>";
+                echo "<img width='200'  src='$image'>";
+                echo "<form method='post'><input type='submit'  name='delete" . $img['id_img'] . "' value='Удалить'></form>";
+                echo "</div>";
+            }
+
+            $delete = "delete" . $img['id_img'];
+            if (isset($_POST[$delete])) {
+                $imageId = $img['id_img'];
+                //удаление из БД картинки с айди, кнопку которого нажали
+                $connection->query("DELETE FROM images WHERE id_img = '$imageId'");
+
+                //так же картинку удаляем и с сайта
+                if (file_exists($image)) {
+                    unlink($image);
+                }
+            }
+        }
+        ?>
+    </div>
 </div>
 
-<h2>Вы зашли для редкатирования статьи?</h2>
-<form method="post" enctype="multipart/form-data">
-    <input type="text" name="title" required value="<?=$oldTitle?>"><br/>
-    <input type="text" name="cat" required value="<?=$oldCat?>"><br/>
-    <textarea name="content" id="" cols="30" rows="10" required><?=$oldContent?></textarea><br/>
-
-    <textarea name="tegs" id="" cols="30" rows="10"><?=$oldTeg?></textarea><br/></br>
-    <input type="file" name="file[]" multiple> <br/> </br>
-    <input type="submit" name="state" >
-
-</form>

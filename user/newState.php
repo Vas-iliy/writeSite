@@ -150,7 +150,7 @@ if (isset($_POST['state'])) {
             <img src="https://img.icons8.com/fluent/48/000000/cat.png"/>
             <h3 class="h3">Register for know more</h3>
         </div>
-        <form class="card-body text-center" method="post">
+        <form class="card-body text-center" method="post" enctype="multipart/form-data">
             <input type="text" class="form-control" name="title" required placeholder="Название статьи"><br/>
             <input type="text" class="form-control" name="cat" required placeholder="Название Категории"><br/>
             <textarea name="content" class="form-control" id="" cols="30" rows="10" required placeholder="Текст статьи"></textarea><br/>
