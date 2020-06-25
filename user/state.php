@@ -1,7 +1,7 @@
 <?php
 class State {
-    public $write;
-    public $file;
+   /* public $write;
+    public $file;*/
 
     /*function __construct( $content)
     {
@@ -126,13 +126,13 @@ class State {
 $connection = new PDO('mysql:host=localhost; dbname=write', 'root', 'root');
 session_start();
 if (!$_SESSION['login']) {
-    header('Location:../index.php');
+    header('Location:../v_index.php');
 }
 
 
 if ($_POST['exit']) {
     session_destroy();
-    header('Location:../index.php');
+    header('Location:../v_index.php');
 }
 
 $loginId = (int)$_GET['loginId'];
@@ -310,7 +310,7 @@ if (isset($_POST['state'])) {
 
 if ($stateId) {
     if ($_POST) {
-        header("Location:state.php?stateId=$stateId&key=editing");
+        header("Location:states.php?stateId=$stateId&key=editing");
     }
     $link = "listMyStates.php?loginId=$id_login";
     $rendering = new State();

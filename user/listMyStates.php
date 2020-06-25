@@ -2,14 +2,14 @@
 $connection = new PDO('mysql:host=localhost; dbname=write', 'root', 'root');
 session_start();
 if (!$_SESSION['login']) {
-    header('Location:..//index.php');
+    header('Location:..//v_index.php');
 }
 
 $loginId = (int)$_GET['loginId'];
 
 if ($_POST['exit']) {
     session_destroy();
-    header('Location:../index.php');
+    header('Location:../v_index.php');
 }
 
 $state = $connection->query("SELECT id_state, state_title, login, cat_title

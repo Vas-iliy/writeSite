@@ -4,7 +4,7 @@ $connection = new PDO('mysql:host=localhost; dbname=write', 'root', 'root');
 session_start();
 
 if (!$_SESSION['login']) {
-    header('Location:index.php');
+    header('Location:v_index.php');
 }
 
 $loginId = (int)$_GET['loginId'];
@@ -18,7 +18,7 @@ $name = $user['login'];
 
 if ($_POST['exit']) {
     session_destroy();
-    header('Location:index.php');
+    header('Location:v_index.php');
 }
 
 ?>
